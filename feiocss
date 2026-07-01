@@ -1,0 +1,47 @@
+ o uso do 'defer' no HTML, o 'DOMContentLoaded' torna-se opcional, 
+// mas foi mantido aqui para garantir isolamento de escopo seguro.
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Funcionalidade do Botão Principal (Hero)
+    const actionBtn = document.getElementById('actionBtn');
+    if (actionBtn) {
+        actionBtn.addEventListener('click', () => {
+            alert('Olá! Obrigado por interagir com a página. O JavaScript está a funcionar corretamente!');
+        });
+    }
+
+    // 2. Funcionalidade do Contador Dinâmico
+    const counterValue = document.getElementById('counter');
+    const increaseBtn = document.getElementById('increaseBtn');
+    const decreaseBtn = document.getElementById('decreaseBtn');
+    
+    let currentCount = 0;
+
+    // Função interna para atualizar o texto e a cor do contador
+    // Definida antes do uso para melhor organização do fluxo de leitura
+    function updateCounter() {
+        counterValue.textContent = currentCount;
+        
+        // Altera a cor do texto dependendo do valor
+        if (currentCount > 0) {
+            counterValue.style.color = '#10b981'; // Verde
+        } else if (currentCount < 0) {
+            counterValue.style.color = '#ef4444'; // Vermelho
+        } else {
+            counterValue.style.color = '#1e293b'; // Cor padrão
+        }
+    }
+
+    // Atribuição dos eventos de clique validando se os elementos existem na tela
+    if (increaseBtn && decreaseBtn && counterValue) {
+        increaseBtn.addEventListener('click', () => {
+            currentCount++;
+            updateCounter();
+        });
+
+        decreaseBtn.addEventListener('click', () => {
+            currentCount--;
+            updateCounter();
+        });
+    }
+});
